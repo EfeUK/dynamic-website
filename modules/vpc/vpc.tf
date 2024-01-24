@@ -24,7 +24,7 @@ data "aws_availability_zones" "available_zones" {}
 # create public subnet az1
 resource "aws_subnet" "pub_1a" {
   vpc_id                  = aws_vpc.vpc.id
-  cidr_block              = var.public_subnet_1a.cidr
+  cidr_block              = var.public_subnet_1a_cidr
   availability_zone       = data.aws_availability_zones.available_zones.names[0]
   map_public_ip_on_launch = true
 
@@ -36,7 +36,7 @@ resource "aws_subnet" "pub_1a" {
 # create public subnet az2
 resource "aws_subnet" "pub_1b" {
   vpc_id                  = aws_vpc.vpc.id
-  cidr_block              = var.public_subnet_1b.cidr
+  cidr_block              = var.public_subnet_1b_cidr
   availability_zone       = data.aws_availability_zones.available_zones.names[1]
   map_public_ip_on_launch = true
 
@@ -74,7 +74,7 @@ resource "aws_route_table_association" "pub_1b_rt_association" {
 # create private app subnet az1
 resource "aws_subnet" "prvt_1a" {
   vpc_id                  = aws_vpc.vpc.id
-  cidr_block              = var.private_subnet_1a.cidr
+  cidr_block              = var.private_subnet_1a_cidr
   availability_zone       = data.aws_availability_zones.available_zones.names[0]
   map_public_ip_on_launch = false
 
@@ -86,7 +86,7 @@ resource "aws_subnet" "prvt_1a" {
 # create private app subnet az2
 resource "aws_subnet" "prvt_1b" {
   vpc_id                  = aws_vpc.vpc.id
-  cidr_block              = var.private_subnet_1a.cidr
+  cidr_block              = var.private_subnet_1a_cidr
   availability_zone       = data.aws_availability_zones.available_zones.names[1]
   map_public_ip_on_launch = false
 
@@ -98,7 +98,7 @@ resource "aws_subnet" "prvt_1b" {
 # create private data subnet az1
 resource "aws_subnet" "database_subnet_1a" {
   vpc_id                  = aws_vpc.vpc.id
-  cidr_block              = var.database_subnet_1a.cidr
+  cidr_block              = var.database_subnet_1a_cidr
   availability_zone       = data.aws_availability_zones.available_zones.names[0]
   map_public_ip_on_launch = false
 
@@ -110,7 +110,7 @@ resource "aws_subnet" "database_subnet_1a" {
 # create private data subnet az2
 resource "aws_subnet" "database_subnet_1b" {
   vpc_id                  = aws_vpc.vpc.id
-  cidr_block              = var.database_subnet_1b.cidr
+  cidr_block              = var.database_subnet_1b_cidr
   availability_zone       = data.aws_availability_zones.available_zones.names[1]
   map_public_ip_on_launch = false
 

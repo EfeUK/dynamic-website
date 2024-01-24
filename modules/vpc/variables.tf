@@ -14,14 +14,14 @@ variable "vpc_cidr" {
   type        = string
 }
 
-variable "public_subnet_1a.cidr" {}
+variable "public_subnet_1a_cidr" {}
 
-variable "public_subnet_1b.cidr" {}
+variable "public_subnet_1b_cidr" {}
 
-variable "private_subnet_1a.cidr" {}
+variable "private_subnet_1a_cidr" {}
 
-variable "private_subnet_1b.cidr" {}
+variable "private_subnet_1b_cidr" {}
 
-variable "database_subnet_1a.cidr" {}
+variable "database_subnet_1a_cidr" {}
 
-variable "database_subnet_1b.cidr" {}
+variable "database_subnet_1b_cidr" {}
