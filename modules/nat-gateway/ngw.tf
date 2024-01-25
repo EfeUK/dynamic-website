@@ -3,7 +3,7 @@ resource "aws_eip" "eip_for_nat_gateway_az1" {
   vpc    = true
 
   tags   = {
-    Name = "${var.environment}-nat-gateway-az1-eip"
+    Name = "${var.name_prefix}-${var.environment}-nat-gateway-az1-eip"
   }
 }
 
@@ -12,7 +12,7 @@ resource "aws_eip" "eip_for_nat_gateway_az2" {
   vpc    = true
 
   tags   = {
-    Name = "${var.environment}-nat-gateway-az2-eip"
+    Name = "${var.name_prefix}-${var.environment}-nat-gateway-az2-eip"
   }
 }
 
@@ -22,7 +22,7 @@ resource "aws_nat_gateway" "nat_gateway_az1" {
   subnet_id     = var.public_subnet_az1_id
 
   tags   = {
-    Name = "${var.environment}-nat-gateway-az1"
+    Name = "${var.name_prefix}-${var.environment}-nat-gateway-az1"
   }
 
   # to ensure proper ordering, it is recommended to add an explicit dependency
@@ -35,7 +35,7 @@ resource "aws_nat_gateway" "nat_gateway_az2" {
   subnet_id     = var.public_subnet_az2_id
 
   tags   = {
-    Name = "${var.environment}-nat-gateway-az2"
+    Name = "${var.name_prefix}-${var.environment}-nat-gateway-az2"
   }
 
   # to ensure proper ordering, it is recommended to add an explicit dependency
@@ -53,7 +53,7 @@ resource "aws_route_table" "private_route_table_az1" {
   }
 
   tags   = {
-    Name = "${var.environment}-private-route-table-az1"
+    Name = "${var.name_prefix}-${var.environment}-private-route-table-az1"
   }
 }
 
@@ -79,7 +79,7 @@ resource "aws_route_table" "private_route_table_az2" {
   }
 
   tags   = {
-    Name = "${var.environment}-private-route-table-az2"
+    Name = "${var.name_prefix}-${var.environment}-private-route-table-az2"
   }
 }
 

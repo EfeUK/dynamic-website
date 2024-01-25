@@ -9,7 +9,7 @@ variable "aws_region" {}
 
 variable "vpc_cidr" {}
 
-variable "vpc_id" {}
+variable "vpc_id" {} # comment out when applying only vpc
 
 variable "public_subnet_1a_cidr" {}
 
@@ -22,6 +22,8 @@ variable "private_subnet_1b_cidr" {}
 variable "database_subnet_1a_cidr" {}
 
 variable "database_subnet_1b_cidr" {}
+
+# Security Group
 
 variable "ssh_ip" {}
 
@@ -46,8 +48,19 @@ variable "mysql_subnet_ids" {}
 variable "mysql_db_subnet_group_name" {}
 
 
-variable "mysql_option_group_name" {}
+# variable "mysql_option_group_name" {}
 
 variable "mysql_custom_endpoint" {}
 
 variable "zone_id" {}
+
+# acm variables
+
+variable "domain_name" {}
+variable "alternative_names" {}
+
+# alb variables
+
+variable "target_type" {}
+
+

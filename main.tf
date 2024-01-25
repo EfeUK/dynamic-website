@@ -61,11 +61,34 @@ module "rds" {
   mysql_subnet_ids           = var.mysql_subnet_ids
   mysql_db_subnet_group_name = var.mysql_db_subnet_group_name
   # mysql_parameter_group_name       = var.mysql_parameter_group_name
-  mysql_option_group_name    = var.mysql_option_group_name
+  # mysql_option_group_name    = var.mysql_option_group_name
   # vpc_cidr                   = module.vpc_cidr
   zone_id                    = var.zone_id
   mysql_custom_endpoint      = var.mysql_custom_endpoint
   mysql_db_identifier        = "dynamic-web"
   database_security_group_id = module.security-groups.database_security_group_id
   tags                       = local.common_tags
+}
+
+
+# request ssl certificate
+
+module "ssl_certificate" {
+  source            = "./modules/acm"
+  domain_name       = var.domain_name
+  alternative_names = var.alternative_names
+}
+
+# Creation of pplication load balancer
+
+module "application_load_balancer" {
+  source                = "./modules/alb"
+  name_prefix           = local.name_prefix
+  environment           = local.environment
+  alb_security_group_id = module.security-groups.alb_security_group_id
+  public_subnet_az1_id  = module.vpc.public_subnet_az1_id
+  public_subnet_az2_id  = module.vpc.public_subnet_az2_id
+  target_type           = var.target_type
+  vpc_id                = module.vpc.vpc_id
+  certificate_arn       = module.ssl_certificate.certificate_arn
 }
