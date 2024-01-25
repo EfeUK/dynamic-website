@@ -92,3 +92,71 @@ module "application_load_balancer" {
   vpc_id                = module.vpc.vpc_id
   certificate_arn       = module.ssl_certificate.certificate_arn
 }
+
+# Create s3 bucket
+
+module "aws_s3_bucket" {
+  source                 = "./modules/s3"
+  name_prefix            = local.name_prefix
+  dynamic_website_bucket = var.dynamic_website_bucket
+  dynamic_file           = var.dynamic_file
+
+}
+
+# # create ecs task execution role
+
+module "ecs_task_execution_role" {
+  source                 = "./modules/iam-role"
+  name_prefix            = local.name_prefix
+  environment            = local.environment
+  dynamic_website_bucket = var.dynamic_website_bucket
+}
+
+# create ecs and task definitions
+module "ecs" {
+  source                      = "./modules/ecs"
+  name_prefix                 = local.name_prefix
+  environment                 = local.environment
+  ecs_task_execution_role_arn = module.ecs_task_execution_role.ecs_task_execution_role_arn
+  architecture                = var.architecture
+  container_image             = var.container_image
+  dynamic_website_bucket      = var.dynamic_website_bucket # check all related later in main.tf, could switch to module.aws_s3_bucket
+  dynamic_file                = var.dynamic_file
+  aws_region                  = local.aws_region
+  private_app_subnet_az1_id   = module.vpc.private_app_subnet_az1_id
+  private_app_subnet_az2_id   = module.vpc.private_app_subnet_az2_id
+  ecs_security_group_id       = module.security-groups.ecs_security_group_id
+  alb_target_group_arn        = module.application_load_balancer.alb_target_group_arn
+  ecs_cluster                 = var.ecs_cluster
+  # app_port                    = var.app_port
+
+}
+
+# # creation of auto scaling group
+
+module "ecs_asg" {
+  source      = "./modules/asg"
+  name_prefix = local.name_prefix
+  environment = local.environment
+  ecs_service = module.ecs.ecs_service
+  ecs_cluster = module.ecs.ecs_cluster
+
+}
+
+# # create route-53 record set
+
+module "route-53" {
+  source                             = "./modules/route-53"
+  name_prefix                        = local.name_prefix
+  environment                        = local.environment
+  domain_name                        = module.ssl_certificate.domain_name
+  record_name                        = var.record_name
+  application_load_balancer_dns_name = module.application_load_balancer.application_load_balancer_dns_name
+  application_load_balancer_zone_id  = module.application_load_balancer.application_load_balancer_zone_id
+
+}
+
+# print the website url
+output "website_url" {
+  value = join("", ["https://", var.record_name, ".", var.domain_name])
+}

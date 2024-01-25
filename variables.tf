@@ -63,4 +63,22 @@ variable "alternative_names" {}
 
 variable "target_type" {}
 
+# s3 variables
+
+variable "dynamic_website_bucket" {}
+variable "dynamic_file" {}
+
+# # ecs variables
+
+variable "architecture" {}
+variable "container_image" {}
+variable "ecs_cluster" {}
+# variable "app_port" {}
+
+# # route-53 variables
+
+variable "record_name" {}
+
+
+
 

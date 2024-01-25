@@ -4,6 +4,6 @@ output "dynamic_bucket" {
 }
 
 # export the environment file name
-output "dynaic_file" {
+output "dynamic_file" {
   value = var.dynamic_file
 }

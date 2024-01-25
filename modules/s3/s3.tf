@@ -10,6 +10,8 @@ resource "aws_s3_bucket" "dynamic_website_bucket" {
 # upload the environment file from local computer into the s3 bucket
 resource "aws_s3_object" "upload_dynamic_file" {
   bucket = aws_s3_bucket.dynamic_website_bucket.id
+#   key    = "dynamic_file"
   key    = var.dynamic_file
   source = "./${var.dynamic_file}"
+#   source = "./index.html"
 }
