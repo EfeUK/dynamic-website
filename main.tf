@@ -42,33 +42,7 @@ module "security-groups" {
   ssh_ip      = var.ssh_ip
 }
 
-module "rds" {
-  source                     = "./modules/rds"
-  name_prefix                = local.name_prefix
-  environment                = local.environment
-  mysql_engine_version       = var.mysql_engine_version
-  username                   = "administrator"
-  mysql_family               = var.mysql_family
-  mysql_major_engine_version = var.mysql_major_engine_version
-  mysql_instance_class       = var.mysql_instance_class
-  allocated_storage          = "20"
-  max_allocated_storage      = "100"
-  storage_type               = "gp3"
-  mysql_db_name              = var.mysql_db_name
-  multi_az                   = var.multi_az
-  backup_retention_period    = var.backup_retention_period
-  vpc_id                     = module.vpc.vpc_id
-  mysql_subnet_ids           = var.mysql_subnet_ids
-  mysql_db_subnet_group_name = var.mysql_db_subnet_group_name
-  # mysql_parameter_group_name       = var.mysql_parameter_group_name
-  # mysql_option_group_name    = var.mysql_option_group_name
-  # vpc_cidr                   = module.vpc_cidr
-  zone_id                    = var.zone_id
-  mysql_custom_endpoint      = var.mysql_custom_endpoint
-  mysql_db_identifier        = "dynamic-web"
-  database_security_group_id = module.security-groups.database_security_group_id
-  tags                       = local.common_tags
-}
+
 
 
 # request ssl certificate
