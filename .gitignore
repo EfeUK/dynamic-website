@@ -36,3 +36,5 @@ terraform.rc
 entrypoint.sh
 
 .terraform.lock.hcl
+
+rds/
