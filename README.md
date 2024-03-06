@@ -73,6 +73,6 @@ This project demonstrates how to deploy a dynamic website using Amazon ECS (Elas
 Additional Notes
 The terraform.tfvars file is intentionally left out in this repository for security reasons. Users should create their own file with appropriate values.
 Ensure that your AWS account has the necessary permissions for creating the specified resources.
-This project is for educational purposes and may not be suitable for production use without further customization and security considerations.
+This project is for educational purposes or testing development, follow the security best preactices to establish with production. 
 
    
